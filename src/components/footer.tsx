@@ -6,11 +6,18 @@ const Footer: React.FC = () => {
 		<Center py={4}>
 			<Box>
 				<Text color='gray.500'>
-					made with{' '}
+					Made with{' '}
 					<chakra.span color='pink.300' fontSize={'xl'}>
 						♥
 					</chakra.span>{' '}
-					by xencodes
+					by{' '}
+					<chakra.a
+						href='https://github.com/xencodes'
+						target={'_blank'}
+						color='white'
+					>
+						Monawwar Abdullah
+					</chakra.a>
 				</Text>
 			</Box>
 		</Center>
