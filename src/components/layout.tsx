@@ -1,5 +1,4 @@
 import React from 'react';
-import { Project } from '@prisma/client';
 import { Box, HStack, Stack } from '@chakra-ui/react';
 import Header from './header';
 import Projects from './projects';
