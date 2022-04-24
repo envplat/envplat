@@ -7,7 +7,8 @@ import { ProjectWithEnvs } from 'types';
 const Layout: React.FC<{
 	children: React.ReactChild;
 	projects: ProjectWithEnvs[];
-}> = ({ children, projects }) => {
+	activeProjectId: number;
+}> = ({ children, projects, activeProjectId }) => {
 	return (
 		<Stack spacing={4}>
 			<Header />
@@ -15,7 +16,7 @@ const Layout: React.FC<{
 			<Box px={{ base: 4, lg: 12 }}>
 				<HStack spacing={4} alignItems='flex-start' w='full'>
 					<Box w='md'>
-						<Projects projects={projects} />
+						<Projects activeProjectId={activeProjectId} projects={projects} />
 					</Box>
 					<Box w='full'>{children}</Box>
 				</HStack>

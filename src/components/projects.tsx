@@ -52,7 +52,8 @@ const NewProjectEntry: React.FC<{
 
 const Projects: React.FC<{
 	projects: ProjectWithEnvs[];
-}> = ({ projects }) => {
+	activeProjectId: number;
+}> = ({ projects, activeProjectId }) => {
 	const newProjectEntry = useDisclosure();
 
 	return (
@@ -77,11 +78,14 @@ const Projects: React.FC<{
 			<Stack spacing={0}>
 				{projects.map((proj, idx) => {
 					const varCount = proj.envs.length;
+					const isActive = activeProjectId === proj.id;
+
 					return (
 						<Link key={idx} href={`/${proj.id}`} passHref>
 							<HStack
 								p={2}
-								opacity={0.7}
+								opacity={isActive ? 1 : 0.7}
+								bg={isActive ? 'gray.800' : 'transparent'}
 								_hover={{ opacity: 1, bg: 'gray.800' }}
 								cursor='pointer'
 								userSelect={'none'}

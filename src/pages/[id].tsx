@@ -39,7 +39,7 @@ const ProjectView: NextPage<{
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<Layout projects={projects}>
+			<Layout projects={projects} activeProjectId={activeProjectId}>
 				<ProjectOverview project={activeProject} />
 			</Layout>
 		</div>
