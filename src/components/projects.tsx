@@ -1,22 +1,99 @@
+import React, { useRef } from 'react';
 import {
 	Box,
 	Button,
 	Divider,
 	Heading,
 	HStack,
+	Input,
 	Spacer,
+	Stack,
+	Text,
+	useDisclosure,
 } from '@chakra-ui/react';
-import React from 'react';
+import useFetch from 'use-http';
+import { ProjectWithEnvs } from 'types';
 
-const Projects: React.FC = () => {
+const NewProjectEntry: React.FC<{
+	onClose: () => void;
+}> = ({ onClose }) => {
+	const api = useFetch('/api/projects');
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	const createProjectApi = () => {
+		const projectName = inputRef.current?.value;
+		api
+			.post({
+				name: projectName,
+			})
+			.then((res) => {
+				if (res.ok) {
+					onClose();
+				}
+			});
+	};
+
+	return (
+		<Box>
+			<Input
+				ref={inputRef}
+				isDisabled={api.loading}
+				placeholder='Enter project name'
+				onKeyDown={(e) => {
+					if (e.key === 'Enter') {
+						createProjectApi();
+					}
+				}}
+			/>
+		</Box>
+	);
+};
+
+const Projects: React.FC<{
+	projects: ProjectWithEnvs[];
+}> = ({ projects }) => {
+	const newProjectEntry = useDisclosure();
+
 	return (
 		<Box p={4} bg='gray.900'>
 			<HStack>
 				<Heading size='md'>Projects</Heading>
 				<Spacer />
-				<Button size='sm'>New project</Button>
+				<Button size='sm' onClick={newProjectEntry.onToggle}>
+					New project
+				</Button>
 			</HStack>
+
 			<Divider my={4} />
+
+			{newProjectEntry.isOpen && (
+				<>
+					<NewProjectEntry onClose={newProjectEntry.onClose} />
+					<Divider my={4} />
+				</>
+			)}
+
+			<Stack spacing={0}>
+				{projects.map((proj, idx) => {
+					const varCount = proj.envs.length;
+					return (
+						<HStack
+							p={2}
+							key={idx}
+							opacity={0.7}
+							_hover={{ opacity: 1, bg: 'gray.800' }}
+							cursor='pointer'
+							userSelect={'none'}
+						>
+							<Heading size='sm'>{proj.name}</Heading>
+							<Spacer />
+							<Text mt={1} color='gray.600'>
+								{varCount} variable{varCount > 1 && 's'}
+							</Text>
+						</HStack>
+					);
+				})}
+			</Stack>
 		</Box>
 	);
 };

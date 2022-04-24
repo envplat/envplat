@@ -3,9 +3,14 @@ import Head from 'next/head';
 import Layout from 'components/layout';
 import prisma from 'providers/prisma';
 import { Box, Heading, HStack, Spacer, Text } from '@chakra-ui/react';
+import { ProjectWithEnvs } from 'types';
 
 export const getServerSideProps = async () => {
-	const projects = await prisma.project.findMany();
+	const projects = await prisma.project.findMany({
+		include: {
+			envs: true,
+		},
+	});
 	return {
 		props: {
 			projects,
@@ -13,7 +18,9 @@ export const getServerSideProps = async () => {
 	};
 };
 
-const Home: NextPage = () => {
+const Home: NextPage<{
+	projects: ProjectWithEnvs[];
+}> = ({ projects }) => {
 	return (
 		<div>
 			<Head>
@@ -22,7 +29,7 @@ const Home: NextPage = () => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<Layout>
+			<Layout projects={projects}>
 				<Box bg='gray.900' p={4}>
 					<HStack>
 						<Heading size='md'>Quract</Heading>
