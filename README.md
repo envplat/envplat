@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/31907722/165001782-504c4b6a-7b94-4d30-a2c4-1903cac663e5.png)
+<img src="https://user-images.githubusercontent.com/31907722/165001782-504c4b6a-7b94-4d30-a2c4-1903cac663e5.png" alt="logo" width="200"/>
 
 # envplat - environment platform
 
