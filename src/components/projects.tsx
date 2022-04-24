@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import useFetch from 'use-http';
 import { ProjectWithEnvs } from 'types';
+import Link from 'next/link';
 
 const NewProjectEntry: React.FC<{
 	onClose: () => void;
@@ -77,20 +78,21 @@ const Projects: React.FC<{
 				{projects.map((proj, idx) => {
 					const varCount = proj.envs.length;
 					return (
-						<HStack
-							p={2}
-							key={idx}
-							opacity={0.7}
-							_hover={{ opacity: 1, bg: 'gray.800' }}
-							cursor='pointer'
-							userSelect={'none'}
-						>
-							<Heading size='sm'>{proj.name}</Heading>
-							<Spacer />
-							<Text mt={1} color='gray.600'>
-								{varCount} variable{varCount > 1 && 's'}
-							</Text>
-						</HStack>
+						<Link key={idx} href={`/${proj.id}`} passHref>
+							<HStack
+								p={2}
+								opacity={0.7}
+								_hover={{ opacity: 1, bg: 'gray.800' }}
+								cursor='pointer'
+								userSelect={'none'}
+							>
+								<Heading size='sm'>{proj.name}</Heading>
+								<Spacer />
+								<Text mt={1} color='gray.600'>
+									{varCount} variable{varCount > 1 && 's'}
+								</Text>
+							</HStack>
+						</Link>
 					);
 				})}
 			</Stack>
