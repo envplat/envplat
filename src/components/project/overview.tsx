@@ -33,10 +33,17 @@ const ProjectOverview: React.FC<{
 
 	const saveEnv = () => {
 		const { name, value } = form.getValues();
-		api.post({
-			projectId: project.id,
-			env: { name, value },
-		});
+		api
+			.post({
+				projectId: project.id,
+				env: { name, value },
+			})
+			.then((res) => {
+				if (res.ok) {
+					form.reset();
+					envEntry.onClose();
+				}
+			});
 	};
 
 	return (
