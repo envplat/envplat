@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
+import shortid from 'shortid';
 import prisma from 'providers/prisma';
 
 type Data = {
@@ -16,6 +17,7 @@ export default async function handler(
 		await prisma.project.create({
 			data: {
 				name,
+				access: shortid.generate(),
 			},
 		});
 

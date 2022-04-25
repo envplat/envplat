@@ -11,9 +11,10 @@ datasource db {
 }
 
 model Project {
-  id   Int    @id @default(autoincrement())
-  name String
-  envs Env[]
+  id     Int    @id @default(autoincrement())
+  name   String
+  envs   Env[]
+  access String
 }
 
 model Env {

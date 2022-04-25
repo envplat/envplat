@@ -19,12 +19,14 @@
     "react-dom": "18.0.0",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
+    "shortid": "^2.2.16",
     "use-http": "^1.0.26"
   },
   "devDependencies": {
     "@types/node": "17.0.25",
     "@types/react": "18.0.6",
     "@types/react-dom": "18.0.2",
+    "@types/shortid": "^0.0.29",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
     "prisma": "3.12.0",
