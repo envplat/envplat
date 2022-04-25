@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import useFetch from 'use-http';
-import { FiSettings, FiSearch } from 'react-icons/fi';
+import { FiSettings, FiSearch, FiEye, FiEyeOff } from 'react-icons/fi';
 import { ProjectWithEnvs } from 'types';
 import NotFound from './not-found';
 import Envs from './envs';
@@ -27,6 +27,7 @@ const ProjectOverview: React.FC<{
 	const form = useForm();
 	const api = useFetch('/api/envs');
 	const envEntry = useDisclosure();
+	const valueVisibility = useDisclosure();
 
 	if (!project) {
 		return <NotFound />;
@@ -62,6 +63,11 @@ const ProjectOverview: React.FC<{
 					</Box>
 					<Spacer />
 					<ButtonGroup size='sm'>
+						<IconButton
+							icon={valueVisibility.isOpen ? <FiEyeOff /> : <FiEye />}
+							aria-label={'view'}
+							onClick={valueVisibility.onToggle}
+						/>
 						<IconButton icon={<FiSettings />} aria-label={'settings'} />
 						<IconButton icon={<FiSearch />} aria-label={'search'} />
 					</ButtonGroup>
@@ -102,7 +108,7 @@ const ProjectOverview: React.FC<{
 					</Box>
 				)}
 
-				<Envs envs={project.envs} />
+				<Envs valueVisibility={valueVisibility.isOpen} envs={project.envs} />
 			</Box>
 		</Stack>
 	);
