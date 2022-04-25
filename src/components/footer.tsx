@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
 						target={'_blank'}
 						color='white'
 					>
-						Monawwar Abdullah
+						xencodes
 					</chakra.a>
 				</Text>
 			</Box>
