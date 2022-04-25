@@ -56,7 +56,8 @@ const ProjectOverview: React.FC<{
 					<Box>
 						<Heading size='md'>{name}</Heading>
 						<Text fontSize={'sm'} mt={1} color='gray.500'>
-							{envs.length} variable{envs.length > 1 && 's'} • 1 mode
+							{envs.length} variable{envs.length > 1 && 's'} • 1 mode •{' '}
+							{project.access}
 						</Text>
 					</Box>
 					<Spacer />
