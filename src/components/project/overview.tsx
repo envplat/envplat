@@ -53,7 +53,7 @@ const ProjectOverview: React.FC<{
 	return (
 		<Stack>
 			<Box bg='gray.900' p={4}>
-				<HStack>
+				<HStack alignItems={'flex-start'}>
 					<Box>
 						<Heading size='md'>{name}</Heading>
 						<Text fontSize={'sm'} mt={1} color='gray.500'>
