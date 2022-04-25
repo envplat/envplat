@@ -13,25 +13,16 @@ import {
 	Input,
 	useDisclosure,
 } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import useFetch from 'use-http';
 import { ProjectWithEnvs } from 'types';
 import NotFound from './not-found';
-
-const EnvironmentEntry = () => {
-	return (
-		<SimpleGrid columns={10} spacing={4}>
-			<GridItem colSpan={3}>
-				<Input placeholder='Name' />
-			</GridItem>
-			<GridItem colSpan={7}>
-				<Input placeholder='Value' />
-			</GridItem>
-		</SimpleGrid>
-	);
-};
 
 const ProjectOverview: React.FC<{
 	project: ProjectWithEnvs | undefined;
 }> = ({ project }) => {
+	const form = useForm();
+	const api = useFetch('/api/envs');
 	const envEntry = useDisclosure();
 
 	if (!project) {
@@ -39,6 +30,14 @@ const ProjectOverview: React.FC<{
 	}
 
 	const { name, envs } = project;
+
+	const saveEnv = () => {
+		const { name, value } = form.getValues();
+		api.post({
+			projectId: project.id,
+			env: { name, value },
+		});
+	};
 
 	return (
 		<Stack>
@@ -61,7 +60,7 @@ const ProjectOverview: React.FC<{
 							<Button variant='ghost' onClick={envEntry.onClose}>
 								Cancel
 							</Button>
-							<Button onClick={envEntry.onClose} colorScheme='blue'>
+							<Button onClick={saveEnv} colorScheme='blue'>
 								Save
 							</Button>
 						</ButtonGroup>
@@ -72,7 +71,18 @@ const ProjectOverview: React.FC<{
 					)}
 				</HStack>
 
-				{envEntry.isOpen && <EnvironmentEntry />}
+				{envEntry.isOpen && (
+					<>
+						<SimpleGrid columns={10} spacing={4}>
+							<GridItem colSpan={3}>
+								<Input placeholder='Name' {...form.register('name')} />
+							</GridItem>
+							<GridItem colSpan={7}>
+								<Input placeholder='Value' {...form.register('value')} />
+							</GridItem>
+						</SimpleGrid>
+					</>
+				)}
 			</Box>
 		</Stack>
 	);
