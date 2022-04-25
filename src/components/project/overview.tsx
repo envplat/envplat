@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 import useFetch from 'use-http';
 import { ProjectWithEnvs } from 'types';
 import NotFound from './not-found';
+import Envs from './envs';
 
 const ProjectOverview: React.FC<{
 	project: ProjectWithEnvs | undefined;
@@ -56,11 +57,12 @@ const ProjectOverview: React.FC<{
 						{envs.length} variable{envs.length > 1 && 's'} • 1 mode
 					</Text>
 				</HStack>
-			</Box>
 
-			<Box bg='gray.900' p={4}>
-				<HStack mb={4}>
-					<Heading size='sm'>Variables</Heading>
+				<HStack my={4}>
+					<Text fontSize='sm' color='gray.500' textTransform={'uppercase'}>
+						Environment Variables
+					</Text>
+
 					<Spacer />
 					{envEntry.isOpen ? (
 						<ButtonGroup size='sm'>
@@ -79,7 +81,7 @@ const ProjectOverview: React.FC<{
 				</HStack>
 
 				{envEntry.isOpen && (
-					<>
+					<Box my={4}>
 						<SimpleGrid columns={10} spacing={4}>
 							<GridItem colSpan={3}>
 								<Input placeholder='Name' {...form.register('name')} />
@@ -88,8 +90,10 @@ const ProjectOverview: React.FC<{
 								<Input placeholder='Value' {...form.register('value')} />
 							</GridItem>
 						</SimpleGrid>
-					</>
+					</Box>
 				)}
+
+				<Envs envs={project.envs} />
 			</Box>
 		</Stack>
 	);
