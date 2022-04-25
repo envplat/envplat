@@ -8,6 +8,7 @@ import {
 	Stack,
 	Button,
 	ButtonGroup,
+	IconButton,
 	SimpleGrid,
 	GridItem,
 	Input,
@@ -15,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import useFetch from 'use-http';
+import { FiSettings, FiSearch } from 'react-icons/fi';
 import { ProjectWithEnvs } from 'types';
 import NotFound from './not-found';
 import Envs from './envs';
@@ -51,11 +53,17 @@ const ProjectOverview: React.FC<{
 		<Stack>
 			<Box bg='gray.900' p={4}>
 				<HStack>
-					<Heading size='md'>{name}</Heading>
+					<Box>
+						<Heading size='md'>{name}</Heading>
+						<Text fontSize={'sm'} mt={1} color='gray.500'>
+							{envs.length} variable{envs.length > 1 && 's'} • 1 mode
+						</Text>
+					</Box>
 					<Spacer />
-					<Text color='gray.500'>
-						{envs.length} variable{envs.length > 1 && 's'} • 1 mode
-					</Text>
+					<ButtonGroup size='sm'>
+						<IconButton icon={<FiSettings />} aria-label={'settings'} />
+						<IconButton icon={<FiSearch />} aria-label={'search'} />
+					</ButtonGroup>
 				</HStack>
 
 				<HStack my={4}>
