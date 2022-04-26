@@ -6,3 +6,19 @@
 
 Self-hosted environment variable management platform with cross-platform synchronous capability.
 It comes with a web based admin panel which is easy to install and setup using PostgreSQL database.
+
+<img src="https://user-images.githubusercontent.com/31907722/165230315-137f2d9d-5a32-4c31-9f3b-6382dcfd39a2.png" alt="demo" />
+
+## Features
+
+* Easy to setup
+* Self-hosted
+* Dark theme
+* Multiple projects
+* Multiple env mode
+
+## Todo
+
+* Multiple env mode
+* Auto update data
+* Sync w/o access or hostname
